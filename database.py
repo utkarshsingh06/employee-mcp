@@ -33,6 +33,7 @@ def seed_data():
         (3, "Charlie", "Finance", 78000, "charlie@company.com"),
         (4, "David", "Engineering", 95000, "david@company.com"),
         (5, "Eva", "Marketing", 70000, "eva@company.com"),
+        (6, "Rakesh", "Engineering", 9500, "rakes@company.com"),
     ]
 
     cursor.executemany("""
@@ -58,4 +59,32 @@ def get_all_employees():
 
     return employees
 
+def get_employee_by_id(employee_id):
+    conn=get_connection()
+    cursor=conn.cursor()
+    cursor.execute("""
+        SELECT id, name, department, salary, email
+        FROM employees
+        WHERE id=?
+        """ ,(employee_id,))      
     
+    employee=cursor.fetchone()
+    conn.close()
+    if employee is None:
+        return None
+
+    return dict(employee)
+
+def get_employees_by_department(department):
+    conn=get_connection()
+    cursor=conn.cursor()
+    cursor.execute("""
+        SELECT id, name, department, salary, email
+        FROM employees
+        WHERE department=?
+        """ ,(department,))
+    
+    employees = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+    return employees
+                   

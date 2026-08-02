@@ -1,1 +1,1 @@
-------------------------------------------------BASIC CLAUDE INTEGRATION WITH SQLITEDB MCP SERVE----------------------------------------------------------
+-----------------------------------BASIC CLAUDE INTEGRATION WITH SQLITEDB MCP SERVE----------------------------

@@ -87,4 +87,41 @@ def get_employees_by_department(department):
     employees = [dict(row) for row in cursor.fetchall()]
     conn.close()
     return employees
-                   
+
+def add_employees(name, department, salary, email):
+
+    conn=get_connection()
+    cursor=conn.cursor()
+    cursor.execute("""
+        INSERT INTO employees (name, department, salary, email)
+        Values(?,?,?,?)
+        """,(name,department,salary,email))
+    conn.commit()
+    conn.close()
+    return "Employee added successfully."
+
+def update_employees_salary(salary,employee_id):
+    conn=get_connection()
+    cursor=conn.cursor()
+    cursor.execute("""
+        UPDATE employees
+        SET salary=?
+        WHERE id=?
+        """,(salary,employee_id))
+    
+    conn.commit()
+    conn.close()
+    return "Employee updated successfully."
+
+def delete_employees_by_id(employee_id):
+    conn=get_connection()
+    cursor=conn.cursor()
+    cursor.execute("""
+        DELETE FROM employees
+        WHERE id=?
+        """,(employee_id,))
+    
+    conn.commit()
+    conn.close()
+    return "Employee deleted successfully janab."
+    

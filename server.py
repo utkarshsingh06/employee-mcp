@@ -1,11 +1,9 @@
-from mcp.server.fastmcp import FastMCP #Import fast MCP class from python SDK
-from database import (
-    initialize_database,
-    seed_data,
-    get_all_employees,
-    get_employee_by_id,
-    get_employees_by_department
-)
+from mcp.server.fastmcp import FastMCP  # Import fast MCP class from python SDK
+
+from database import (add_employees, delete_employees_by_id, get_all_employees,
+                      get_employee_by_id, get_employees_by_department,
+                      initialize_database, seed_data, update_employees_salary)
+
 mcp = FastMCP("Employee Server") #create a server
 
 
@@ -14,7 +12,7 @@ def hello() -> str: #definging the tool function with return type as string
     """
     Returns a welcome message.
     """
-    return "Hello from Employee MCP Server!"
+    return "Hello from Employee MCP Server Utkarsh!"
 
 @mcp.tool()
 def list_employees():
@@ -36,7 +34,28 @@ def search_employees_by_department(department: str):
     """
     Returns employees by department.
     """
-    return get_employees_by_departments(department)
+    return get_employees_by_department(department)
+@mcp.tool()
+def add_employee(name: str, department: str, salary: float, email: str):
+    print(f">>> add_employee called: {name}, {department}, {salary}, {email}")
+    """
+    Adds a new employee to the database.
+    """
+    return add_employees(name, department, salary, email)
+
+@mcp.tool()
+def update_employee_salary(salary: float, employee_id: int):
+    """
+    Updates an employee's salary by ID.
+    """
+    return update_employees_salary(salary, employee_id)
+
+@mcp.tool()
+def delete_employee(employee_id: int):
+    """
+    Deletes an employee by ID.
+    """
+    return delete_employees_by_id(employee_id)
     
 
 if __name__ == "__main__":
